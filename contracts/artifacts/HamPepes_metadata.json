@@ -8,14 +8,14 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_startTime",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address",
 						"name": "_renderer",
 						"type": "address"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "_merkleRoot",
+						"type": "bytes32"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -44,11 +44,6 @@
 			{
 				"inputs": [],
 				"name": "BalanceQueryForZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "InsufficientFunds",
 				"type": "error"
 			},
 			{
@@ -88,12 +83,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "NotStarted",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "OnlyOneFreePepe",
+				"name": "OnlyOneFreeMint",
 				"type": "error"
 			},
 			{
@@ -302,6 +292,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "MAX_FREE",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "MAX_SUPPLY",
 				"outputs": [
 					{
@@ -470,11 +473,29 @@
 						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32[]",
+						"name": "proof",
+						"type": "bytes32[]"
 					}
 				],
 				"name": "freeMint",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "freePhaseActive",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -522,12 +543,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "isWlPhase",
+				"name": "merkleRoot",
 				"outputs": [
 					{
-						"internalType": "bool",
+						"internalType": "bytes32",
 						"name": "",
-						"type": "bool"
+						"type": "bytes32"
 					}
 				],
 				"stateMutability": "view",
@@ -589,6 +610,19 @@
 				"name": "publicMint",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "publicPhaseActive",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -661,19 +695,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "startTime",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "bytes4",
@@ -703,6 +724,27 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "toggleFreeMinting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "togglePublicMinting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "toggleWLMinting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -843,14 +885,27 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_startTime",
-						"type": "uint256"
+						"internalType": "bytes32",
+						"name": "_merkleRoot",
+						"type": "bytes32"
 					}
 				],
-				"name": "updateStartTime",
+				"name": "updateMerkleRoot",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "whitelistPhaseActive",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -916,9 +971,6 @@
 				},
 				"symbol()": {
 					"details": "Returns the token collection symbol."
-				},
-				"tokenURI(uint256)": {
-					"details": "Get on-chain token URI"
 				},
 				"tokensOfOwner(address)": {
 					"details": "Returns an array of token IDs owned by `owner`. This function scans the ownership mapping and is O(`totalSupply`) in complexity. It is meant to be called off-chain. See {ERC721AQueryable-tokensOfOwnerIn} for splitting the scan into multiple smaller scans if the collection is large enough to cause an out-of-gas error (10K collections should be fine)."
@@ -1035,11 +1087,11 @@
 			},
 			"kind": "user",
 			"methods": {
-				"freeMint(uint256)": {
-					"notice": "free mint function 1 free mint per address on the whitelist"
+				"freeMint(uint256,bytes32[])": {
+					"notice": "Free mint function"
 				},
-				"publicMint(uint256)": {
-					"notice": "Public mint function max mint per wallet is 4"
+				"toggleFreeMinting()": {
+					"notice": "admin panel"
 				}
 			},
 			"version": 1
@@ -1174,11 +1226,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0xcf3c5119b35931e7e19ccd89d3d3f1c427f1b990426c61d3b301a507bee4c7e9",
+			"keccak256": "0x4c16182a75fc07f15225ff7cbb62931cd042d35580faedf5d8e7c5d5ff30e09c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://30c8d241a051facad4662db5295183ea5f0cef6d44cafc0ae49bcf087375aba4",
-				"dweb:/ipfs/QmetKqWrYQ7Pb7XuXRxN8kD3R7WDYHBsfd4bSbXshLRcAH"
+				"bzz-raw://9318ee4eb6b6064653a835f8617a83c6760c08d5fd3c386e660d5a6a828ba0c0",
+				"dweb:/ipfs/QmPLGFTDkexV3X6qNUYRxz2oqaRbJvHMqJGJx7bkMbXRyY"
 			]
 		},
 		"utils/Base64.sol": {

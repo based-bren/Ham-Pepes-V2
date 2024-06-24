@@ -25,99 +25,95 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
 
   uint256 public MAX_SUPPLY = 1000;
   uint256 public MINT_COST = 0.005 ether;
-//  bytes32 public merkleRoot;
+  uint256 public MAX_FREE =379;
+  bool public freePhaseActive = false;
+  bool public whitelistPhaseActive = false;
+  bool public publicPhaseActive = false;
+  bytes32 public merkleRoot;
 
-  uint256 public startTime;
-  mapping (uint256 => bytes32) public tokenIdToSeed;
+  mapping(uint256 => bytes32) public tokenIdToSeed;
 
-  error InsufficientFunds();
-  error NotStarted();
-  error AmountRequired();
-  error SoldOut();
-  error AmountExceedsAvailableSupply();
   error InvalidProof();
+  error OnlyOneFreeMint();
+  error SoldOut();
   error MaxMintWouldBeExceeded();
-  error OnlyOneFreePepe();
+  error AmountExceedsAvailableSupply();
+  error AmountRequired();
 
   constructor(
-  uint256 _startTime,
-    address _renderer//,
-    //bytes32 _merkleRoot
-  ) ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
-    startTime = _startTime;
-    //merkleRoot = _merkleRoot;
+    address _renderer,
+    bytes32 _merkleRoot)
+    ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
+    merkleRoot = _merkleRoot;
     renderer = HamPepeRenderer(_renderer);
-  }
+    }
 
-//  function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
-//    merkleRoot = _merkleRoot;
-//  }
+// public funtion to set the merkle root at deployment
 
-  function updateStartTime(uint256 _startTime) public onlyOwner {
-    startTime = _startTime;
- }
+    function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
+    merkleRoot = _merkleRoot;
+    }
 
+// return the images for an array of token IDs
 
-  /// @dev Get on-chain token URI
-  function tokenURI(uint256 tokenId)
+    function tokenURI(uint256 tokenId)
     public
     view
     override(ERC721A, IERC721A)
     returns (string memory)
-  {
-    return renderer.getJsonUri(tokenId, tokenIdToSeed[tokenId]);
-  }
+    {
+    return renderer.getJsonUri(tokenId, tokenIdToSeed[tokenId]);  // create this function
+    }
 
-  function _startTokenId() internal view virtual override returns (uint256) {
+// set the first token ID to 1
+
+    function _startTokenId() internal view virtual override returns (uint256) {
     return 1;
   }
 
-  function isWlPhase() public view returns (bool) {
-    return block.timestamp < startTime + 48 hours;
-  }
 
-  function withdraw() external onlyOwner nonReentrant {
-        (bool success, ) = msg.sender.call{value: address(this).balance}("");
-        require(success, "Transfer failed.");
-    }
 
   mapping(address => uint) public amountMinted;
 
-/// free mint function
-/// 1 free mint per address on the whitelist
+/// Free mint function
 
-  function freeMint(uint256 amount) //bytes32[] calldata proof)
-  public 
-  nonReentrant
-  {
-    //if (isWlPhase()) {
-    //  bytes32 leaf = keccak256(abi.encode(msg.sender));
-    //  if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
-     //   revert InvalidProof();
-    //  }
+    function freeMint(uint256 amount, bytes32 [] calldata proof)
+    public 
+    nonReentrant
+    {
+        require(freePhaseActive = true);
+
+        bytes32 leaf = keccak256(abi.encode(msg.sender));
+      if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
+        revert InvalidProof();
+      }
       if(amountMinted[msg.sender] + amount > 1) {
-      revert OnlyOneFreePepe();
+      revert OnlyOneFreeMint();
     }
+    if (amount <= 0) {
+      revert AmountRequired();
+    }
+
     uint256 current = _nextTokenId();
     uint256 end = current + amount - 1;
+
 
     for (; current <= end; current++) {
       tokenIdToSeed[current] = keccak256(
         abi.encodePacked(blockhash(block.number - 1), current)
       );
     }
-    _safeMint(msg.sender, amount);
+    _mint(msg.sender, amount);
+    
+    }
 
-  }
-  
-  /// Public mint function
-  /// max mint per wallet is 4
-
-  function publicMint(uint256 amount)
-    public
-    payable
+    function publicMint(uint256 amount) 
+    public 
+    payable 
     nonReentrant
-  {
+    {
+        require(publicPhaseActive = true);
+
     if(amountMinted[msg.sender] + amount > 4) {
       revert MaxMintWouldBeExceeded();
     }
@@ -126,9 +122,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     if (totalMinted == MAX_SUPPLY) {
       revert SoldOut();
     }
-    if (block.timestamp < startTime) {
-      revert NotStarted();
-    }
+
     if (amount <= 0) {
       revert AmountRequired();
     }
@@ -136,12 +130,6 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     if (totalAfterMint > MAX_SUPPLY) {
       revert AmountExceedsAvailableSupply();
     }
-
-    uint256 totalCost = amount * MINT_COST;
-    if ((msg.value) < totalCost) {
-      revert InsufficientFunds();
-    }
-
     uint256 current = _nextTokenId();
     uint256 end = current + amount - 1;
 
@@ -150,14 +138,31 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
         abi.encodePacked(blockhash(block.number - 1), current)
       );
     }
-    _safeMint(msg.sender, amount);
+    _mint(msg.sender, amount);
   }
+
+
+
+/// admin panel
+
+    function toggleFreeMinting() external onlyOwner {
+        freePhaseActive = !freePhaseActive;
+    }
+
+    function toggleWLMinting() external onlyOwner {
+        whitelistPhaseActive = !whitelistPhaseActive;
+
+    }
+
+    function togglePublicMinting() external onlyOwner {
+        publicPhaseActive = !publicPhaseActive;
+
+    }
+
+    // withdraw the ether from the contract  
+
+    function withdraw() external onlyOwner nonReentrant {
+    (bool success, ) = msg.sender.call{value: address(this).balance}("");
+    require(success, "Transfer failed.");
+     }
 }
-
-//  receive() external payable virtual {
-//    emit PaymentReceived(msg.sender, msg.value);
-//  }
-
-//  fallback() external payable {
-//    emit PaymentReceived(msg.sender, msg.value);
-//  }
