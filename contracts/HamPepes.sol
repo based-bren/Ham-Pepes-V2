@@ -25,7 +25,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
 
   uint256 public MAX_SUPPLY = 1000;
   uint256 public MINT_COST = 0.005 ether;
-  bytes32 public merkleRoot;
+//  bytes32 public merkleRoot;
 
   uint256 public startTime;
   mapping (uint256 => bytes32) public tokenIdToSeed;
@@ -37,31 +37,26 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   error AmountExceedsAvailableSupply();
   error InvalidProof();
   error MaxMintWouldBeExceeded();
+  error OnlyOneFreePepe();
 
   constructor(
-    string memory name,
-    string memory symbol,
-    uint256 _startTime,
-    address _renderer,
-    bytes32 _merkleRoot
-  ) ERC721A(name, symbol) Owned(msg.sender) {
+  uint256 _startTime,
+    address _renderer//,
+    //bytes32 _merkleRoot
+  ) ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
     startTime = _startTime;
-    merkleRoot = _merkleRoot;
+    //merkleRoot = _merkleRoot;
     renderer = HamPepeRenderer(_renderer);
   }
 
-  function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
-    merkleRoot = _merkleRoot;
-  }
+//  function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
+//    merkleRoot = _merkleRoot;
+//  }
 
   function updateStartTime(uint256 _startTime) public onlyOwner {
     startTime = _startTime;
-  }
+ }
 
-  /// @dev Withdraw any ETH sent to the contract
- /// function withdrawEth(uint256 amount) public onlyOwner {
- ///   Address.sendValue(payable(owner), amount);
- /// }
 
   /// @dev Get on-chain token URI
   function tokenURI(uint256 tokenId)
@@ -81,22 +76,48 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     return block.timestamp < startTime + 48 hours;
   }
 
+  function withdraw() external onlyOwner nonReentrant {
+        (bool success, ) = msg.sender.call{value: address(this).balance}("");
+        require(success, "Transfer failed.");
+    }
+
   mapping(address => uint) public amountMinted;
 
-  /// @dev Public mint function
+/// free mint function
+/// 1 free mint per address on the whitelist
+
+  function freeMint(uint256 amount) //bytes32[] calldata proof)
+  public 
+  nonReentrant
+  {
+    //if (isWlPhase()) {
+    //  bytes32 leaf = keccak256(abi.encode(msg.sender));
+    //  if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
+     //   revert InvalidProof();
+    //  }
+      if(amountMinted[msg.sender] + amount > 1) {
+      revert OnlyOneFreePepe();
+    }
+    uint256 current = _nextTokenId();
+    uint256 end = current + amount - 1;
+
+    for (; current <= end; current++) {
+      tokenIdToSeed[current] = keccak256(
+        abi.encodePacked(blockhash(block.number - 1), current)
+      );
+    }
+    _safeMint(msg.sender, amount);
+
+  }
+  
+  /// Public mint function
   /// max mint per wallet is 4
 
-  function mint(uint256 amount, bytes32[] calldata proof)
+  function publicMint(uint256 amount)
     public
     payable
     nonReentrant
   {
-    if (isWlPhase()) {
-      bytes32 leaf = keccak256(abi.encode(msg.sender));
-      if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
-        revert InvalidProof();
-      }
-    }
     if(amountMinted[msg.sender] + amount > 4) {
       revert MaxMintWouldBeExceeded();
     }
@@ -129,15 +150,14 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
         abi.encodePacked(blockhash(block.number - 1), current)
       );
     }
-    _mint(msg.sender, amount);
-  }
-
-  receive() external payable virtual {
-    emit PaymentReceived(msg.sender, msg.value);
-  }
-
-  fallback() external payable {
-    emit PaymentReceived(msg.sender, msg.value);
+    _safeMint(msg.sender, amount);
   }
 }
 
+//  receive() external payable virtual {
+//    emit PaymentReceived(msg.sender, msg.value);
+//  }
+
+//  fallback() external payable {
+//    emit PaymentReceived(msg.sender, msg.value);
+//  }

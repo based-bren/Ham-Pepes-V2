@@ -1,22 +1,12 @@
 {
 	"compiler": {
-		"version": "0.8.23+commit.f704f362"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
 				"inputs": [
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "symbol",
-						"type": "string"
-					},
 					{
 						"internalType": "uint256",
 						"name": "_startTime",
@@ -26,11 +16,6 @@
 						"internalType": "address",
 						"name": "_renderer",
 						"type": "address"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "_merkleRoot",
-						"type": "bytes32"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -104,6 +89,11 @@
 			{
 				"inputs": [],
 				"name": "NotStarted",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "OnlyOneFreePepe",
 				"type": "error"
 			},
 			{
@@ -311,10 +301,6 @@
 				"type": "event"
 			},
 			{
-				"stateMutability": "payable",
-				"type": "fallback"
-			},
-			{
 				"inputs": [],
 				"name": "MAX_SUPPLY",
 				"outputs": [
@@ -482,6 +468,19 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "freeMint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
 					}
@@ -536,37 +535,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "merkleRoot",
-				"outputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes32[]",
-						"name": "proof",
-						"type": "bytes32[]"
-					}
-				],
-				"name": "mint",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "name",
 				"outputs": [
 					{
@@ -608,6 +576,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "publicMint",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -862,19 +843,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "bytes32",
-						"name": "_merkleRoot",
-						"type": "bytes32"
-					}
-				],
-				"name": "updateMerkleRoot",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "_startTime",
 						"type": "uint256"
@@ -886,8 +854,11 @@
 				"type": "function"
 			},
 			{
-				"stateMutability": "payable",
-				"type": "receive"
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -924,9 +895,6 @@
 				},
 				"isApprovedForAll(address,address)": {
 					"details": "Returns if the `operator` is allowed to manage all of the assets of `owner`. See {setApprovalForAll}."
-				},
-				"mint(uint256,bytes32[])": {
-					"details": "Public mint function max mint per wallet is 4"
 				},
 				"name()": {
 					"details": "Returns the token collection name."
@@ -1066,7 +1034,14 @@
 				]
 			},
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"freeMint(uint256)": {
+					"notice": "free mint function 1 free mint per address on the whitelist"
+				},
+				"publicMint(uint256)": {
+					"notice": "Public mint function max mint per wallet is 4"
+				}
+			},
 			"version": 1
 		}
 	},
@@ -1074,7 +1049,7 @@
 		"compilationTarget": {
 			"contracts/HamPepes.sol": "HamPepes"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1199,11 +1174,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x94b0c9bd01453f1b924669239043925d4be2515057206622935b14cbeb7a51bd",
+			"keccak256": "0xcf3c5119b35931e7e19ccd89d3d3f1c427f1b990426c61d3b301a507bee4c7e9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://81e775425d85259e51ebc044511afb670a4072bc53871ddbcf38019a05f141db",
-				"dweb:/ipfs/QmQJpYBU6FMKyfGtko358GtnTTNydby9KqhCSizw4kVT7b"
+				"bzz-raw://30c8d241a051facad4662db5295183ea5f0cef6d44cafc0ae49bcf087375aba4",
+				"dweb:/ipfs/QmetKqWrYQ7Pb7XuXRxN8kD3R7WDYHBsfd4bSbXshLRcAH"
 			]
 		},
 		"utils/Base64.sol": {

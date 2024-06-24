@@ -1,0 +1,304 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "contract HamPepeTraits",
+						"name": "_traitsMetaData",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "TraitsImageAlreadySet",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "seed",
+						"type": "bytes32"
+					}
+				],
+				"name": "getJsonString",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "seed",
+						"type": "bytes32"
+					}
+				],
+				"name": "getJsonUri",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_seed",
+						"type": "bytes32"
+					}
+				],
+				"name": "getSvg",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "seed",
+						"type": "bytes32"
+					}
+				],
+				"name": "getSvgDataUri",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_seed",
+						"type": "bytes32"
+					}
+				],
+				"name": "getTraits",
+				"outputs": [
+					{
+						"internalType": "uint256[7]",
+						"name": "traits",
+						"type": "uint256[7]"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTraitsImage",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "data",
+						"type": "string"
+					}
+				],
+				"name": "setTraitsImage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "traitsImagePointer",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "d",
+						"type": "string"
+					}
+				],
+				"name": "updateDescription",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/HamPepeRenderer.sol": "HamPepeRenderer"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"auth/Owned.sol": {
+			"keccak256": "0xf26f8dfee3166a289c8179fcc391f12ca986a19f1bb9730a66c06a3c5d6e763e",
+			"license": "AGPL-3.0-only",
+			"urls": [
+				"bzz-raw://d74baf83d13a911b7f17a3e450fe2d017d88dbbef284375393f0cc9124850062",
+				"dweb:/ipfs/QmWCNaF5BKPvB7LYhY2zcDLSRsYGsN14nPJrZ5hs4h8y5A"
+			]
+		},
+		"contracts/HamPepeRenderer.sol": {
+			"keccak256": "0x78329f53bac26252be87cd415daa27498cf77e45b6227c00486df63181677bc3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4be836f88be61f63ad9e7e5bacd3337460fa38af870d7f8e698523c084a44f1c",
+				"dweb:/ipfs/QmQmUdDZnNP48HDxUg2GYQGKe2nvxpKVRexY17TUD31wVD"
+			]
+		},
+		"contracts/HamPepeTraits.sol": {
+			"keccak256": "0x693dd933585076b4510b2b8bdf571b418e2423023e90d5af26301c95f4bf3cd6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ff40164159f8e5b38ce5cf4fbd83823a843de4e0f3f5014341f45cbe329b4830",
+				"dweb:/ipfs/QmUwqP5a7qVKorcj71ikLfTZdR3r2C1wiDYYA1o6th6eiC"
+			]
+		},
+		"utils/Base64.sol": {
+			"keccak256": "0xc1b3bd04f65059ca264269aeb389ef868ea613dee80d7adc3eb6bc332d1c0b4b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a9b4e37fc4c86cec687e1629906ab6bfdbc47a9d38d053a7de5c32b631a6e294",
+				"dweb:/ipfs/QmVpf8YqUdBWyBYSCUsuT75YVpU79kVJzTtp5sC3N6Xvbm"
+			]
+		},
+		"utils/LibString.sol": {
+			"keccak256": "0x217bd2e1366dbf0420da591bed830652205241363ff2176e2390e8c6b8927c73",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://becfbba0f7f6fc9a876cb8731e5e24968f2ac3ed3b6e991acec726116edb4bc6",
+				"dweb:/ipfs/QmQQEzhCf5rmQfy2WESjySGZUS3Ezqw3H24VzyL2Vu9U3e"
+			]
+		},
+		"utils/SSTORE2.sol": {
+			"keccak256": "0xb6159fd2c480093536fc54521f87956b7fcebadbe551b9ffb3122cc883098784",
+			"license": "AGPL-3.0-only",
+			"urls": [
+				"bzz-raw://ffa5ab04ef5b0af848f8296976a5973232907d7efd64d0304def0a94db98813e",
+				"dweb:/ipfs/QmUVns1dXAd68rvvHqJk1UNM73XB5YGB2nToXiLQRnBKct"
+			]
+		}
+	},
+	"version": 1
+}
