@@ -107,6 +107,10 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     
     }
 
+/// whitelist mint function required here with a check loop to search for holders of Ham Punks and The Ham LP
+
+/// public mint function
+
     function publicMint(uint256 amount) 
     public 
     payable 
