@@ -1039,7 +1039,7 @@
 			"kind": "user",
 			"methods": {
 				"publicMint(uint256)": {
-					"notice": "public mint function"
+					"notice": "public mint function there is no mint cost check in here yet"
 				},
 				"toggleFreeMinting()": {
 					"notice": "admin panel"
@@ -1177,11 +1177,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x0d81a77fb63eb54caa9c5e85e3dbc708da28491c3cf210193bf51a80f4f5f37b",
+			"keccak256": "0x7cbad56c96d39e0f1ba37e2bb179ac2356a749be0562ff85c50a6a754f643e27",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7b4e5dd18762deef5865b796372615abe0380e296c7cd7eab8368d33976dd935",
-				"dweb:/ipfs/QmYuEwHdmjWp748yFmrALPnQrYLqXiu9pEV1ZoXkEj9GPf"
+				"bzz-raw://f2e89a4d78adbf23e80941790db5d48ab12ff9ad30da6ba5fff139c3c1423dd3",
+				"dweb:/ipfs/QmQxbE7a1CSafP4oCm9Xj97s145YWN5tiqpjLEAKEYwzxv"
 			]
 		},
 		"utils/Base64.sol": {
