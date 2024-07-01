@@ -159,7 +159,7 @@
 		"compilationTarget": {
 			"contracts/HamPepeTraits.sol": "HamPepeTraits"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"

@@ -66,7 +66,7 @@ contract HamPepeRenderer is Owned {
         return 
             string(
                 abi.encodePacked(
-                    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" height="350" width="350"><defs><image height="640" width="120" image-rendering="pixelated" id="s" href="',
+                    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" height="350" width="350"><defs><image height="640" width="120" image-rendering="pixelated" id="s" href="data:image/png;base64,',
                     getTraitsImage(),
                     '" /><clipPath id="c"><rect width="40" height="40" /></clipPath></defs><g clip-path="url(#c)">'
                 )
@@ -347,7 +347,7 @@ contract HamPepeRenderer is Owned {
             )
         );
 
-        for (uint256 i = 1; i < 6; i++) {
+        for (uint256 i = 0; i < 6; i++) {  //changed here from i=1 to i=0 because the skin was not being shown
             uint256 tile = traits[i];
             if (tile == 0) {
                 continue;

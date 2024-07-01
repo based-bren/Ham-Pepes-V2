@@ -29,7 +29,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   bool public freePhaseActive = false;
   bool public whitelistPhaseActive = false;
   bool public publicPhaseActive = false;
-  bytes32 public merkleRoot;
+  //bytes32 public merkleRoot;
 
   mapping(uint256 => bytes32) public tokenIdToSeed;
 
@@ -41,18 +41,18 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   error AmountRequired();
 
   constructor(
-    address _renderer,
-    bytes32 _merkleRoot)
+    address _renderer)
+   // bytes32 _merkleRoot)
     ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
-    merkleRoot = _merkleRoot;
+   // merkleRoot = _merkleRoot;
     renderer = HamPepeRenderer(_renderer);
     }
 
 // public funtion to set the merkle root at deployment
 
-    function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
-    merkleRoot = _merkleRoot;
-    }
+   // function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
+   // merkleRoot = _merkleRoot;
+   // }
 
 // return the images for an array of token IDs
 
@@ -77,39 +77,39 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
 
 /// Free mint function
 
-    function freeMint(uint256 amount, bytes32 [] calldata proof)
-    public 
-    nonReentrant
-    {
-        require(freePhaseActive = true);
+//    function freeMint(uint256 amount, bytes32 [] calldata proof)
+//    public 
+ //   nonReentrant
+ //   {
+ //       require(freePhaseActive = true);
 
-        bytes32 leaf = keccak256(abi.encode(msg.sender));
-      if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
-        revert InvalidProof();
-      }
-      if(amountMinted[msg.sender] + amount > 1) {
-      revert OnlyOneFreeMint();
-    }
-    if (amount <= 0) {
-      revert AmountRequired();
-    }
+ //       bytes32 leaf = keccak256(abi.encode(msg.sender));
+     // if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
+     //   revert InvalidProof();
+      //}
+ ////      revert OnlyOneFreeMint();
+//    }
+  //  if (amount <= 0) {
+  //    revert AmountRequired();
+  //  }
 
-    uint256 current = _nextTokenId();
-    uint256 end = current + amount - 1;
+ //   uint256 current = _nextTokenId();
+ //   uint256 end = current + amount - 1;
 
 
-    for (; current <= end; current++) {
-      tokenIdToSeed[current] = keccak256(
-        abi.encodePacked(blockhash(block.number - 1), current)
-      );
-    }
-    _mint(msg.sender, amount);
+ //   for (; current <= end; current++) {
+  //    tokenIdToSeed[current] = keccak256(
+  //      abi.encodePacked(blockhash(block.number - 1), current)
+   //   );
+  //  }
+   // _mint(msg.sender, amount);
     
-    }
+    //}
 
 /// whitelist mint function required here with a check loop to search for holders of Ham Punks and The Ham LP
 
 /// public mint function
+/// there is no mint cost check in here yet
 
     function publicMint(uint256 amount) 
     public 

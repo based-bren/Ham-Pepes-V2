@@ -11,11 +11,6 @@
 						"internalType": "address",
 						"name": "_renderer",
 						"type": "address"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "_merkleRoot",
-						"type": "bytes32"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -468,24 +463,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes32[]",
-						"name": "proof",
-						"type": "bytes32[]"
-					}
-				],
-				"name": "freeMint",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "freePhaseActive",
 				"outputs": [
@@ -536,19 +513,6 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "merkleRoot",
-				"outputs": [
-					{
-						"internalType": "bytes32",
-						"name": "",
-						"type": "bytes32"
 					}
 				],
 				"stateMutability": "view",
@@ -883,19 +847,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "bytes32",
-						"name": "_merkleRoot",
-						"type": "bytes32"
-					}
-				],
-				"name": "updateMerkleRoot",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "whitelistPhaseActive",
 				"outputs": [
@@ -1087,8 +1038,8 @@
 			},
 			"kind": "user",
 			"methods": {
-				"freeMint(uint256,bytes32[])": {
-					"notice": "Free mint function"
+				"publicMint(uint256)": {
+					"notice": "public mint function"
 				},
 				"toggleFreeMinting()": {
 					"notice": "admin panel"
@@ -1101,7 +1052,7 @@
 		"compilationTarget": {
 			"contracts/HamPepes.sol": "HamPepes"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1210,11 +1161,11 @@
 			]
 		},
 		"contracts/HamPepeRenderer.sol": {
-			"keccak256": "0x78329f53bac26252be87cd415daa27498cf77e45b6227c00486df63181677bc3",
+			"keccak256": "0x875856c8b38a128301089682c4ac7a33419110ae95868755356201dd48d2455c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4be836f88be61f63ad9e7e5bacd3337460fa38af870d7f8e698523c084a44f1c",
-				"dweb:/ipfs/QmQmUdDZnNP48HDxUg2GYQGKe2nvxpKVRexY17TUD31wVD"
+				"bzz-raw://6e004879fb44877623199ca41482ebbbf4cd5e262e945d0a8ea40b4d94ee4b7f",
+				"dweb:/ipfs/QmemxcxRzHh4y9dLHbYJg4PYx2kCwGR2DP6Lax2vCfttRy"
 			]
 		},
 		"contracts/HamPepeTraits.sol": {
@@ -1226,11 +1177,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x4c16182a75fc07f15225ff7cbb62931cd042d35580faedf5d8e7c5d5ff30e09c",
+			"keccak256": "0x0d81a77fb63eb54caa9c5e85e3dbc708da28491c3cf210193bf51a80f4f5f37b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9318ee4eb6b6064653a835f8617a83c6760c08d5fd3c386e660d5a6a828ba0c0",
-				"dweb:/ipfs/QmPLGFTDkexV3X6qNUYRxz2oqaRbJvHMqJGJx7bkMbXRyY"
+				"bzz-raw://7b4e5dd18762deef5865b796372615abe0380e296c7cd7eab8368d33976dd935",
+				"dweb:/ipfs/QmYuEwHdmjWp748yFmrALPnQrYLqXiu9pEV1ZoXkEj9GPf"
 			]
 		},
 		"utils/Base64.sol": {
