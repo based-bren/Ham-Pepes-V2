@@ -39,6 +39,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   error MaxMintWouldBeExceeded();
   error AmountExceedsAvailableSupply();
   error AmountRequired();
+  error InsufficientFunds();
 
   constructor(
     address _renderer)
@@ -134,6 +135,11 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     if (totalAfterMint > MAX_SUPPLY) {
       revert AmountExceedsAvailableSupply();
     }
+    uint256 totalCost = amount * MINT_COST;
+    if (msg.value < totalCost) {
+      revert InsufficientFunds();
+    }
+
     uint256 current = _nextTokenId();
     uint256 end = current + amount - 1;
 

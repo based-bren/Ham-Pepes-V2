@@ -43,6 +43,11 @@
 			},
 			{
 				"inputs": [],
+				"name": "InsufficientFunds",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "InvalidProof",
 				"type": "error"
 			},
@@ -1161,11 +1166,11 @@
 			]
 		},
 		"contracts/HamPepeRenderer.sol": {
-			"keccak256": "0x875856c8b38a128301089682c4ac7a33419110ae95868755356201dd48d2455c",
+			"keccak256": "0xefc82da5b518e26a506dedd9134611cbe51f4af3dbcdfdb2c86feddc05cb65c0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6e004879fb44877623199ca41482ebbbf4cd5e262e945d0a8ea40b4d94ee4b7f",
-				"dweb:/ipfs/QmemxcxRzHh4y9dLHbYJg4PYx2kCwGR2DP6Lax2vCfttRy"
+				"bzz-raw://1cd85fd6124d9361cd958cb71f413dbf0778294c538eb591be2554b7a774210c",
+				"dweb:/ipfs/Qmf1nsrChm4WhKuBT3q2ZqaWRaJrf2qAPbyXzGzUxStfrW"
 			]
 		},
 		"contracts/HamPepeTraits.sol": {
@@ -1177,11 +1182,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x7cbad56c96d39e0f1ba37e2bb179ac2356a749be0562ff85c50a6a754f643e27",
+			"keccak256": "0xd7ea8ddc38071e17c1eea6ab395723330b53095fbba2bf04900efd649fd285f5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f2e89a4d78adbf23e80941790db5d48ab12ff9ad30da6ba5fff139c3c1423dd3",
-				"dweb:/ipfs/QmQxbE7a1CSafP4oCm9Xj97s145YWN5tiqpjLEAKEYwzxv"
+				"bzz-raw://6413701731f52f7f6cd05ef8486d1a27113f8a026feb9521312c5ea3ed706fea",
+				"dweb:/ipfs/QmRLr6uS6msUBAti94493Ne9r2WSm7axjFimVGT94jem4S"
 			]
 		},
 		"utils/Base64.sol": {
