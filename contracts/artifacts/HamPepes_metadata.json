@@ -11,6 +11,16 @@
 						"internalType": "address",
 						"name": "_renderer",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_HAM",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "_merkleRoot",
+						"type": "bytes32"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -292,6 +302,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "HAM",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "MAX_FREE",
 				"outputs": [
 					{
@@ -468,6 +491,24 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32[]",
+						"name": "proof",
+						"type": "bytes32[]"
+					}
+				],
+				"name": "freeMint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "freePhaseActive",
 				"outputs": [
@@ -518,6 +559,19 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "merkleRoot",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
 					}
 				],
 				"stateMutability": "view",
@@ -852,6 +906,32 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_HAM",
+						"type": "address"
+					}
+				],
+				"name": "updateHAM",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_merkleRoot",
+						"type": "bytes32"
+					}
+				],
+				"name": "updateMerkleRoot",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "whitelistPhaseActive",
 				"outputs": [
@@ -867,6 +947,24 @@
 			{
 				"inputs": [],
 				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
+				"name": "withdrawErc20",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -1043,6 +1141,9 @@
 			},
 			"kind": "user",
 			"methods": {
+				"freeMint(uint256,bytes32[])": {
+					"notice": "Free mint function"
+				},
 				"publicMint(uint256)": {
 					"notice": "public mint function there is no mint cost check in here yet"
 				},
@@ -1057,7 +1158,7 @@
 		"compilationTarget": {
 			"contracts/HamPepes.sol": "HamPepes"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1182,11 +1283,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0xd7ea8ddc38071e17c1eea6ab395723330b53095fbba2bf04900efd649fd285f5",
+			"keccak256": "0xfe62f802467759ca3f1d2f35f8c1205e452b2db44afe69f5703ffe6d9235e330",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6413701731f52f7f6cd05ef8486d1a27113f8a026feb9521312c5ea3ed706fea",
-				"dweb:/ipfs/QmRLr6uS6msUBAti94493Ne9r2WSm7axjFimVGT94jem4S"
+				"bzz-raw://75bb4a075b66eb22487217f103fa4bb966f0127bd207cec11f03c375bb254fa7",
+				"dweb:/ipfs/QmSXtbAjhb4sWzAcAATfTu8ciDkSq2d6VjMcKhfSk92PNE"
 			]
 		},
 		"utils/Base64.sol": {
@@ -1195,6 +1296,14 @@
 			"urls": [
 				"bzz-raw://a9b4e37fc4c86cec687e1629906ab6bfdbc47a9d38d053a7de5c32b631a6e294",
 				"dweb:/ipfs/QmVpf8YqUdBWyBYSCUsuT75YVpU79kVJzTtp5sC3N6Xvbm"
+			]
+		},
+		"utils/ERC20.sol": {
+			"keccak256": "0xab8198e1322886729d1c2b106818fd863b34db8534ca937b0c9aa9d70617ae62",
+			"license": "AGPL-3.0-only",
+			"urls": [
+				"bzz-raw://0cc3ccd5e6bfb2611041659f61e1128956ee61a361470f4c543e3d169b456510",
+				"dweb:/ipfs/QmX57Q5bMubhZoApH1hwWsfxbFondUwnoCcAoWhZ7KivYM"
 			]
 		},
 		"utils/ERC721A.sol": {

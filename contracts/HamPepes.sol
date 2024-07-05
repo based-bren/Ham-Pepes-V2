@@ -17,6 +17,7 @@ import "utils/ERC721AQueryable.sol";
 import "utils/IERC721A.sol";
 import "utils/ERC721A.sol";
 import "contracts/HamPepeRenderer.sol";
+import "utils/ERC20.sol";
 
 contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   HamPepeRenderer renderer;
@@ -24,14 +25,16 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   event PaymentReceived (address from, uint256 amount);
 
   uint256 public MAX_SUPPLY = 1000;
-  uint256 public MINT_COST = 0.005 ether;
-  uint256 public MAX_FREE =379;
+  uint256 public MINT_COST = 20_000 ether;   // 20,000 HAM should be 10 dollars approx
+  uint256 public MAX_FREE =1;
   bool public freePhaseActive = false;
   bool public whitelistPhaseActive = false;
   bool public publicPhaseActive = false;
-  //bytes32 public merkleRoot;
+  bytes32 public merkleRoot;
+  address public HAM;
 
   mapping(uint256 => bytes32) public tokenIdToSeed;
+  mapping(address => uint256) public freePepes;
 
   error InvalidProof();
   error OnlyOneFreeMint();
@@ -42,18 +45,28 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   error InsufficientFunds();
 
   constructor(
-    address _renderer)
-   // bytes32 _merkleRoot)
+    address _renderer,
+    address _HAM,
+    bytes32 _merkleRoot)
     ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
-   // merkleRoot = _merkleRoot;
+    merkleRoot = _merkleRoot;
+    HAM = _HAM;
     renderer = HamPepeRenderer(_renderer);
     }
 
 // public funtion to set the merkle root at deployment
 
-   // function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
-   // merkleRoot = _merkleRoot;
-   // }
+  function updateHAM(address _HAM) public onlyOwner {
+    HAM = _HAM;
+  }
+
+  function withdrawErc20(address token, address to) public onlyOwner {
+    ERC20(token).transfer(to, ERC20(token).balanceOf(address(this)));
+  }
+
+   function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
+   merkleRoot = _merkleRoot;
+   }
 
 // return the images for an array of token IDs
 
@@ -63,7 +76,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     override(ERC721A, IERC721A)
     returns (string memory)
     {
-    return renderer.getJsonUri(tokenId, tokenIdToSeed[tokenId]);  // create this function
+    return renderer.getJsonUri(tokenId, tokenIdToSeed[tokenId]);  
     }
 
 // set the first token ID to 1
@@ -77,40 +90,44 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   mapping(address => uint) public amountMinted;
 
 /// Free mint function
+/// the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE
 
-//    function freeMint(uint256 amount, bytes32 [] calldata proof)
-//    public 
- //   nonReentrant
- //   {
- //       require(freePhaseActive = true);
+    function freeMint(uint256 amount, bytes32 [] calldata proof)
+    public 
+    nonReentrant
+    {
+        require(freePhaseActive = true);
+        require(freePepes[msg.sender] + amount <= MAX_FREE, "only one free Pepe");
 
- //       bytes32 leaf = keccak256(abi.encode(msg.sender));
-     // if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
-     //   revert InvalidProof();
-      //}
- ////      revert OnlyOneFreeMint();
-//    }
-  //  if (amount <= 0) {
-  //    revert AmountRequired();
-  //  }
+        bytes32 leaf = keccak256(abi.encode(msg.sender));
 
- //   uint256 current = _nextTokenId();
- //   uint256 end = current + amount - 1;
-
-
- //   for (; current <= end; current++) {
-  //    tokenIdToSeed[current] = keccak256(
-  //      abi.encodePacked(blockhash(block.number - 1), current)
-   //   );
-  //  }
-   // _mint(msg.sender, amount);
+      if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
+        revert InvalidProof();
+       }
+       
     
-    //}
+     if (amount <= 0) {
+      revert AmountRequired();
+     }
+
+    uint256 current = _nextTokenId();
+    uint256 end = current + amount - 1;
+
+
+    for (; current <= end; current++) {
+      tokenIdToSeed[current] = keccak256(
+        abi.encodePacked(blockhash(block.number - 1), current)
+      );
+    }
+    freePepes[msg.sender] +=amount;
+    _mint(msg.sender, amount);
+    
+    }
 
 /// whitelist mint function required here with a check loop to search for holders of Ham Punks and The Ham LP
+/// for now I will skip the WL mint and concentrate on free and public
 
 /// public mint function
-/// there is no mint cost check in here yet
 
     function publicMint(uint256 amount) 
     public 
@@ -135,10 +152,16 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     if (totalAfterMint > MAX_SUPPLY) {
       revert AmountExceedsAvailableSupply();
     }
+    
     uint256 totalCost = amount * MINT_COST;
-    if (msg.value < totalCost) {
+    if (ERC20(HAM).balanceOf(msg.sender) < totalCost) {
       revert InsufficientFunds();
     }
+    ERC20(HAM).transferFrom(
+      msg.sender,
+      0x000000000000000000000000000000000000dEaD,
+      totalCost
+    );
 
     uint256 current = _nextTokenId();
     uint256 end = current + amount - 1;

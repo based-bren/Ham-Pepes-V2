@@ -237,9 +237,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/HamPepeRenderer64.sol": "HamPepeRenderer"
+			"contracts/HamPepeRenderer.sol": "HamPepeRenderer"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -259,7 +259,7 @@
 				"dweb:/ipfs/QmWCNaF5BKPvB7LYhY2zcDLSRsYGsN14nPJrZ5hs4h8y5A"
 			]
 		},
-		"contracts/HamPepeRenderer64.sol": {
+		"contracts/HamPepeRenderer.sol": {
 			"keccak256": "0xefc82da5b518e26a506dedd9134611cbe51f4af3dbcdfdb2c86feddc05cb65c0",
 			"license": "MIT",
 			"urls": [
