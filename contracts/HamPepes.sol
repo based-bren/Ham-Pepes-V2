@@ -159,7 +159,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     }
     ERC20(HAM).transferFrom(
       msg.sender,
-      0x000000000000000000000000000000000000dEaD,
+      0x000000000000000000000000000000000000dEaD, /// change this to a real address to receive some funds
       totalCost
     );
 
