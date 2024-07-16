@@ -509,6 +509,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "freePepes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "freePhaseActive",
 				"outputs": [
@@ -1142,10 +1161,10 @@
 			"kind": "user",
 			"methods": {
 				"freeMint(uint256,bytes32[])": {
-					"notice": "Free mint function"
+					"notice": "Free mint function the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE"
 				},
 				"publicMint(uint256)": {
-					"notice": "public mint function there is no mint cost check in here yet"
+					"notice": "public mint function"
 				},
 				"toggleFreeMinting()": {
 					"notice": "admin panel"
@@ -1283,11 +1302,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0xfe62f802467759ca3f1d2f35f8c1205e452b2db44afe69f5703ffe6d9235e330",
+			"keccak256": "0x6caffdb698baf09f181d5b5edd50b7ae1708696ca27638315cd2a4f890ec5a53",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://75bb4a075b66eb22487217f103fa4bb966f0127bd207cec11f03c375bb254fa7",
-				"dweb:/ipfs/QmSXtbAjhb4sWzAcAATfTu8ciDkSq2d6VjMcKhfSk92PNE"
+				"bzz-raw://3762c5b9ec49e247c9524f34b018810a1087b0e771059bfb1b0e6729a0ba53c7",
+				"dweb:/ipfs/QmdRwfHgNV35MzoNgfoE3ft94psVXzoWRx2U8EqprmPhM1"
 			]
 		},
 		"utils/Base64.sol": {

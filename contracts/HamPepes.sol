@@ -124,8 +124,6 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     
     }
 
-/// whitelist mint function required here with a check loop to search for holders of Ham Punks and The Ham LP
-/// for now I will skip the WL mint and concentrate on free and public
 
 /// public mint function
 
@@ -157,11 +155,6 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     if (ERC20(HAM).balanceOf(msg.sender) < totalCost) {
       revert InsufficientFunds();
     }
-    ERC20(HAM).transferFrom(
-      msg.sender,
-      0x000000000000000000000000000000000000dEaD, /// change this to a real address to receive some funds
-      totalCost
-    );
 
     uint256 current = _nextTokenId();
     uint256 end = current + amount - 1;
@@ -180,11 +173,6 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
 
     function toggleFreeMinting() external onlyOwner {
         freePhaseActive = !freePhaseActive;
-    }
-
-    function toggleWLMinting() external onlyOwner {
-        whitelistPhaseActive = !whitelistPhaseActive;
-
     }
 
     function togglePublicMinting() external onlyOwner {
