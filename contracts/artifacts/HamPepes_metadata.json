@@ -11,16 +11,6 @@
 						"internalType": "address",
 						"name": "_renderer",
 						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_HAM",
-						"type": "address"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "_merkleRoot",
-						"type": "bytes32"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -54,11 +44,6 @@
 			{
 				"inputs": [],
 				"name": "InsufficientFunds",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "InvalidProof",
 				"type": "error"
 			},
 			{
@@ -302,19 +287,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "HAM",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "MAX_FREE",
 				"outputs": [
 					{
@@ -350,6 +322,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address[]",
+						"name": "addresses",
+						"type": "address[]"
+					}
+				],
+				"name": "addToWhiteList",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -406,6 +391,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "changelistController",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -496,11 +494,6 @@
 						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
-					},
-					{
-						"internalType": "bytes32[]",
-						"name": "proof",
-						"type": "bytes32[]"
 					}
 				],
 				"name": "freeMint",
@@ -585,12 +578,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "merkleRoot",
+				"name": "listController",
 				"outputs": [
 					{
-						"internalType": "bytes32",
+						"internalType": "address",
 						"name": "",
-						"type": "bytes32"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -783,13 +776,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "toggleWLMinting",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -928,26 +914,19 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_HAM",
+						"name": "",
 						"type": "address"
 					}
 				],
-				"name": "updateHAM",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
+				"name": "whiteListed",
+				"outputs": [
 					{
-						"internalType": "bytes32",
-						"name": "_merkleRoot",
-						"type": "bytes32"
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
-				"name": "updateMerkleRoot",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -966,24 +945,6 @@
 			{
 				"inputs": [],
 				"name": "withdraw",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "token",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					}
-				],
-				"name": "withdrawErc20",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -1160,14 +1121,20 @@
 			},
 			"kind": "user",
 			"methods": {
-				"freeMint(uint256,bytes32[])": {
+				"freeMint(uint256)": {
 					"notice": "Free mint function the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE"
+				},
+				"listController()": {
+					"notice": "Whitelist setup"
 				},
 				"publicMint(uint256)": {
 					"notice": "public mint function"
 				},
 				"toggleFreeMinting()": {
 					"notice": "admin panel"
+				},
+				"whiteListed(address)": {
+					"notice": "Whitelist Settings"
 				}
 			},
 			"version": 1
@@ -1302,11 +1269,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x6caffdb698baf09f181d5b5edd50b7ae1708696ca27638315cd2a4f890ec5a53",
+			"keccak256": "0x9a194430ff10bb98c5c602d3ab07ad369a9e3eed2ed3c1d40749567778ead393",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3762c5b9ec49e247c9524f34b018810a1087b0e771059bfb1b0e6729a0ba53c7",
-				"dweb:/ipfs/QmdRwfHgNV35MzoNgfoE3ft94psVXzoWRx2U8EqprmPhM1"
+				"bzz-raw://4935401839e322aa6f1e53907d10a63676ac36164cc89433f419b2451933d52f",
+				"dweb:/ipfs/QmQSR8Cw5dLi6CxfYDwE2yrrLEJZFoM7RCHc4gsmnk9StN"
 			]
 		},
 		"utils/Base64.sol": {
@@ -1315,14 +1282,6 @@
 			"urls": [
 				"bzz-raw://a9b4e37fc4c86cec687e1629906ab6bfdbc47a9d38d053a7de5c32b631a6e294",
 				"dweb:/ipfs/QmVpf8YqUdBWyBYSCUsuT75YVpU79kVJzTtp5sC3N6Xvbm"
-			]
-		},
-		"utils/ERC20.sol": {
-			"keccak256": "0xab8198e1322886729d1c2b106818fd863b34db8534ca937b0c9aa9d70617ae62",
-			"license": "AGPL-3.0-only",
-			"urls": [
-				"bzz-raw://0cc3ccd5e6bfb2611041659f61e1128956ee61a361470f4c543e3d169b456510",
-				"dweb:/ipfs/QmX57Q5bMubhZoApH1hwWsfxbFondUwnoCcAoWhZ7KivYM"
 			]
 		},
 		"utils/ERC721A.sol": {
@@ -1363,14 +1322,6 @@
 			"urls": [
 				"bzz-raw://becfbba0f7f6fc9a876cb8731e5e24968f2ac3ed3b6e991acec726116edb4bc6",
 				"dweb:/ipfs/QmQQEzhCf5rmQfy2WESjySGZUS3Ezqw3H24VzyL2Vu9U3e"
-			]
-		},
-		"utils/MerkleProofLib.sol": {
-			"keccak256": "0x40abd23f06f290ed2ac2f2f26da64d92bda4311ea97c099f51ff1812726f6f3d",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://9ebb6b8cfc33068e89b3cad14fb2be84e752d326bb885e7299231e29aa39ad0c",
-				"dweb:/ipfs/QmfYKw4U3BJbDbEwvB9E8HLf2kQpcfzfi2NXAtwXBYzXBo"
 			]
 		},
 		"utils/ReentrancyGuard.sol": {

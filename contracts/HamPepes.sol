@@ -10,14 +10,12 @@ pragma solidity ^0.8.13;
 
 import "auth/Owned.sol";
 import "utils/ReentrancyGuard.sol";
-import "utils/MerkleProofLib.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "utils/ERC721AQueryable.sol";
 import "utils/IERC721A.sol";
 import "utils/ERC721A.sol";
 import "contracts/HamPepeRenderer.sol";
-import "utils/ERC20.sol";
 
 contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   HamPepeRenderer renderer;
@@ -25,18 +23,28 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   event PaymentReceived (address from, uint256 amount);
 
   uint256 public MAX_SUPPLY = 1000;
-  uint256 public MINT_COST = 20_000 ether;   // 20,000 HAM should be 10 dollars approx
+  uint256 public MINT_COST = 0.003 ether;   
   uint256 public MAX_FREE =1;
   bool public freePhaseActive = false;
   bool public whitelistPhaseActive = false;
   bool public publicPhaseActive = false;
-  bytes32 public merkleRoot;
-  address public HAM;
+
 
   mapping(uint256 => bytes32) public tokenIdToSeed;
   mapping(address => uint256) public freePepes;
 
-  error InvalidProof();
+  /// Whitelist Settings
+
+    mapping(address => bool) public whiteListed;
+
+    /// Whitelist setup
+    address public listController;
+
+    modifier onlylistController() {
+        require(msg.sender == listController, "Controller Only");
+        _;
+    }
+
   error OnlyOneFreeMint();
   error SoldOut();
   error MaxMintWouldBeExceeded();
@@ -45,28 +53,13 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   error InsufficientFunds();
 
   constructor(
-    address _renderer,
-    address _HAM,
-    bytes32 _merkleRoot)
+    address _renderer)
     ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
-    merkleRoot = _merkleRoot;
-    HAM = _HAM;
     renderer = HamPepeRenderer(_renderer);
+    listController = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;  // enter correct address here
+  
     }
 
-// public funtion to set the merkle root at deployment
-
-  function updateHAM(address _HAM) public onlyOwner {
-    HAM = _HAM;
-  }
-
-  function withdrawErc20(address token, address to) public onlyOwner {
-    ERC20(token).transfer(to, ERC20(token).balanceOf(address(this)));
-  }
-
-   function updateMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
-   merkleRoot = _merkleRoot;
-   }
 
 // return the images for an array of token IDs
 
@@ -92,18 +85,13 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
 /// Free mint function
 /// the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE
 
-    function freeMint(uint256 amount, bytes32 [] calldata proof)
+    function freeMint(uint256 amount)
     public 
     nonReentrant
     {
         require(freePhaseActive = true);
+        require(whiteListed[msg.sender] == true, "Not on whitelist");
         require(freePepes[msg.sender] + amount <= MAX_FREE, "only one free Pepe");
-
-        bytes32 leaf = keccak256(abi.encode(msg.sender));
-
-      if (!MerkleProofLib.verify(proof, merkleRoot, leaf)) {
-        revert InvalidProof();
-       }
        
     
      if (amount <= 0) {
@@ -152,7 +140,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     }
     
     uint256 totalCost = amount * MINT_COST;
-    if (ERC20(HAM).balanceOf(msg.sender) < totalCost) {
+    if ((msg.value) < totalCost) {
       revert InsufficientFunds();
     }
 
@@ -186,4 +174,14 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     (bool success, ) = msg.sender.call{value: address(this).balance}("");
     require(success, "Transfer failed.");
      }
+
+    function addToWhiteList(address[] calldata addresses) external onlylistController nonReentrant {
+        for (uint i = 0; i < addresses.length; i++) {
+            whiteListed[addresses[i]] = true;
+        }
+    }
+
+    function changelistController(address _address) external onlyOwner {
+        listController = _address;
+    }
 }
