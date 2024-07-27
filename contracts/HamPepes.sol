@@ -113,7 +113,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     }
 
 
-/// public mint function
+/// public mint function (ether)
 
     function publicMint(uint256 amount) 
     public 
