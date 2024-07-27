@@ -56,7 +56,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     address _renderer)
     ERC721A("Ham Pepes", "HPEPE") Owned(msg.sender) {
     renderer = HamPepeRenderer(_renderer);
-    listController = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;  // enter correct address here
+    listController = msg.sender;  // contract owner is the list controller
   
     }
 

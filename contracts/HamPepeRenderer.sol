@@ -66,7 +66,7 @@ contract HamPepeRenderer is Owned {
         return 
             string(
                 abi.encodePacked(
-                    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" height="640" width="640"><defs><image height="1024" width="192" image-rendering="pixelated" id="s" href="data:image/png;base64,',
+                    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" height="640" width="640"><defs><image height="1152" width="192" image-rendering="pixelated" id="s" href="data:image/png;base64,',
                     getTraitsImage(),
                     '" /><clipPath id="c"><rect width="64" height="64" /></clipPath></defs><g clip-path="url(#c)">'
                 )
@@ -303,15 +303,15 @@ contract HamPepeRenderer is Owned {
             // skin
             _r(seeds.one, 1, 100) <= 40 ? _r(seeds.one, 1, 3) : 0, // I don't know why I made this ratio backwards from the rest LMAO
             // pants
-            _r(seeds.two, 1, 100) <= 10 ? 0 : _r(seeds.two, 4, 7),
+            _r(seeds.two, 1, 100) <= 10 ? 0 : _r(seeds.two, 4, 10),
             // shirt
-           _r(seeds.three, 1, 100) <= 15 ? 0 : _r(seeds.three, 8, 16),
+           _r(seeds.three, 1, 100) <= 15 ? 0 : _r(seeds.three, 11, 22),
             // eyes
-            _r(seeds.four, 1, 100) <= 25 ? 0 : _r(seeds.four, 17, 24),
+            _r(seeds.four, 1, 100) <= 25 ? 0 : _r(seeds.four, 23, 30),
             // hat
-            _r(seeds.five, 1, 100) <= 15 ? 0 : _r(seeds.five, 25, 41),
+            _r(seeds.five, 1, 100) <= 15 ? 0 : _r(seeds.five, 31, 47),
             //special
-            _r(seeds.six, 1, 100) <= 20 ? 0 : _r(seeds.six, 42, 47),
+            _r(seeds.six, 1, 100) <= 20 ? 0 : _r(seeds.six, 48, 53),
             // colours
             _r(seeds.seven, 0, 5)
         ];
