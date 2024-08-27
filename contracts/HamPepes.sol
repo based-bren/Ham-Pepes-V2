@@ -114,12 +114,9 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     }
 
 /// Dev mint function
-/// the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE
 
     function DevMint(uint256 amount) external onlyOwner nonReentrant
-    {
-       
-    
+    {    
      if (amount <= 0) {
       revert AmountRequired();
      }
