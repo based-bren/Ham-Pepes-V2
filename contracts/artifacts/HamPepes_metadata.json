@@ -1148,7 +1148,7 @@
 			"kind": "user",
 			"methods": {
 				"DevMint(uint256)": {
-					"notice": "Dev mint function the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE"
+					"notice": "Dev mint function"
 				},
 				"freeMint(uint256)": {
 					"notice": "Free mint function the variable freePepes is intended to check if the minter tries to mint more than MAX_FREE"
@@ -1298,11 +1298,11 @@
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x62c492c884a03d952c36dc9bb3d094623ff3347d3e824cf078dde00c9ed93d8b",
+			"keccak256": "0x0337561bc3a907b6a4603ef90cdbc9b6c0d2ebd3bbb25dd4e2a130064af89621",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://92ca9ba999e396e2d9a3fe9f53ab133583373bccba12f1a3c7ea64394c13f960",
-				"dweb:/ipfs/QmbHWqV2zJHGqT4iADgRizFQMq8fjizt36SQLzBBZFRTy4"
+				"bzz-raw://80e92d5d4dea923795d4bb59c4ebe030292c85e6ee8a19104212f7409a2719c3",
+				"dweb:/ipfs/QmNLpDpjczxWcYU6gf6xT3kW9W212wM8BAzkzzHgjoxKcx"
 			]
 		},
 		"utils/Base64.sol": {
