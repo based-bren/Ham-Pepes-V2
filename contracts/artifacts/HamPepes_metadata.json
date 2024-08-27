@@ -325,6 +325,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "Total_Supply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address[]",
@@ -1128,7 +1141,7 @@
 					"notice": "Whitelist setup"
 				},
 				"publicMint(uint256)": {
-					"notice": "public mint function"
+					"notice": "public mint function (ether)"
 				},
 				"toggleFreeMinting()": {
 					"notice": "admin panel"
@@ -1253,27 +1266,27 @@
 			]
 		},
 		"contracts/HamPepeRenderer.sol": {
-			"keccak256": "0xefc82da5b518e26a506dedd9134611cbe51f4af3dbcdfdb2c86feddc05cb65c0",
+			"keccak256": "0xa5bcb6e0c3499bdf89cd65700382154db95195a092f56384400f90ef0dda6182",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1cd85fd6124d9361cd958cb71f413dbf0778294c538eb591be2554b7a774210c",
-				"dweb:/ipfs/Qmf1nsrChm4WhKuBT3q2ZqaWRaJrf2qAPbyXzGzUxStfrW"
+				"bzz-raw://6a3d823b3de84994af6c2dafa16a2749e56e20c4d17228d2dfc6509702712bb8",
+				"dweb:/ipfs/QmceTqNdNpa97wVvxBtdyfZfeCXgcejdYjuf458iGmAcfj"
 			]
 		},
 		"contracts/HamPepeTraits.sol": {
-			"keccak256": "0x693dd933585076b4510b2b8bdf571b418e2423023e90d5af26301c95f4bf3cd6",
+			"keccak256": "0x910ab2069c5221f16ce556dcdde8a494fbe8938d0dd6ef22af4bd22fe3e6dcd1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ff40164159f8e5b38ce5cf4fbd83823a843de4e0f3f5014341f45cbe329b4830",
-				"dweb:/ipfs/QmUwqP5a7qVKorcj71ikLfTZdR3r2C1wiDYYA1o6th6eiC"
+				"bzz-raw://93c1a0cf05358ba1615eb22755e7fb1b91ccb1b8d7ea55b3e1c9c198261ba4a8",
+				"dweb:/ipfs/QmV3GGcHfjd8js9PRRpiFdDbbR94G1qLYqXmjbPHRuNmdV"
 			]
 		},
 		"contracts/HamPepes.sol": {
-			"keccak256": "0x9a194430ff10bb98c5c602d3ab07ad369a9e3eed2ed3c1d40749567778ead393",
+			"keccak256": "0x390054aead4c519689574c8de57e5e45b20bf9257f2e1cc6add5c0d8dbf3ef8f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4935401839e322aa6f1e53907d10a63676ac36164cc89433f419b2451933d52f",
-				"dweb:/ipfs/QmQSR8Cw5dLi6CxfYDwE2yrrLEJZFoM7RCHc4gsmnk9StN"
+				"bzz-raw://f86744d4ff08b48a37b01a25fdd5ecf2df0360b8ecb2d4791577c1644688b0b8",
+				"dweb:/ipfs/QmbsUAMbrLjnveijNu2g7SKy1ZUXuqXcNwjM8kQJM2fDYD"
 			]
 		},
 		"utils/Base64.sol": {

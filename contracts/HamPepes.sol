@@ -23,6 +23,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   event PaymentReceived (address from, uint256 amount);
 
   uint256 public MAX_SUPPLY = 1000;
+  uint256 public Total_Supply;
   uint256 public MINT_COST = 0.003 ether;   
   uint256 public MAX_FREE =1;
   bool public freePhaseActive = false;
@@ -89,7 +90,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     public 
     nonReentrant
     {
-        require(freePhaseActive = true);
+        require(freePhaseActive = true, "Free mint phase is not active");
         require(whiteListed[msg.sender] == true, "Not on whitelist");
         require(freePepes[msg.sender] + amount <= MAX_FREE, "only one free Pepe");
        
@@ -120,7 +121,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     payable 
     nonReentrant
     {
-        require(publicPhaseActive = true);
+        require(publicPhaseActive = true, "public mint phase is not active");
 
     if(amountMinted[msg.sender] + amount > 4) {
       revert MaxMintWouldBeExceeded();
