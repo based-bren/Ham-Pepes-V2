@@ -23,7 +23,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
   event PaymentReceived (address from, uint256 amount);
 
   uint256 public MAX_SUPPLY = 1000;
-  uint256 public Total_Supply;
+  uint256 public Total_Supply = 0;
   uint256 public MINT_COST = 0.003 ether;   
   uint256 public MAX_FREE =1;
   bool public freePhaseActive = false;
@@ -110,7 +110,8 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     }
     freePepes[msg.sender] +=amount;
     _mint(msg.sender, amount);
-    
+
+    Total_Supply = Total_Supply + amount;
     }
 
 /// Dev mint function
@@ -132,6 +133,8 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     }
     _mint(msg.sender, amount);
     
+
+    Total_Supply = Total_Supply + amount;
     }
 
 
@@ -177,6 +180,8 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
       );
     }
     _mint(msg.sender, amount);
+
+    Total_Supply = Total_Supply + amount;
   }
 
 
