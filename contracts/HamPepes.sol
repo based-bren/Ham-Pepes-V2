@@ -149,7 +149,7 @@ contract HamPepes is ERC721AQueryable, Owned, ReentrancyGuard {
     {
         require(publicPhaseActive = true, "public mint phase is not active");
 
-    if(amountMinted[msg.sender] + amount > 4) {
+    if(amountMinted[msg.sender] + amount > 10) {
       revert MaxMintWouldBeExceeded();
     }
     amountMinted[msg.sender] += amount;

@@ -172,11 +172,11 @@
 	},
 	"sources": {
 		"contracts/HamPepeTraits.sol": {
-			"keccak256": "0x910ab2069c5221f16ce556dcdde8a494fbe8938d0dd6ef22af4bd22fe3e6dcd1",
+			"keccak256": "0x17063403bb11694d912dd6a9a9c96128f3ace2f3a67d2c862d9d781766299d61",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://93c1a0cf05358ba1615eb22755e7fb1b91ccb1b8d7ea55b3e1c9c198261ba4a8",
-				"dweb:/ipfs/QmV3GGcHfjd8js9PRRpiFdDbbR94G1qLYqXmjbPHRuNmdV"
+				"bzz-raw://0ad73e48213f520592d4da4df066d996d45b55b0fafd1d900386727d840c6287",
+				"dweb:/ipfs/QmQfYifPkehdsfBh3t864YYcYrgXVwCWBCwPvmY6upe8hC"
 			]
 		}
 	},

@@ -126,7 +126,7 @@ contract HamPepeRenderer is Owned {
             );
     }
 
-    // this finction encodes the svg data for the array of traits looped in the _getsvg function
+    // this function encodes the svg data for the array of traits looped in the _getsvg function
 
     function _getSvgDataUri(uint256[7] memory traits)
         private
