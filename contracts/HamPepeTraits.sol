@@ -19,8 +19,8 @@ contract HamPepeTraits {
     // create an array of background colours in hex value
 
     string [6] public colours =[
-        // Ham Red
-        "#ea4949",
+        // Bren Purple
+        "#7307EA",
         // Mint Green
         "#4fffbe",
         // Apex Blue

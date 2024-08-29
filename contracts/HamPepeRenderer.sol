@@ -299,6 +299,8 @@ contract HamPepeRenderer is Owned {
 // here no pants, no hat, and no shirt are rare traits
 // 60% of Pepes should have the normal skin
 
+bool hasEyes = _r(seeds.four, 1, 100) <= 75;
+
         traits = [
             // skin
             _r(seeds.one, 1, 100) <= 40 ? _r(seeds.one, 1, 3) : 0, // I don't know why I made this ratio backwards from the rest LMAO
@@ -307,9 +309,13 @@ contract HamPepeRenderer is Owned {
             // shirt
            _r(seeds.three, 1, 100) <= 15 ? 0 : _r(seeds.three, 11, 22),
             // eyes
-            _r(seeds.four, 1, 100) <= 25 ? 0 : _r(seeds.four, 23, 30),
+            //_r(seeds.four, 1, 100) <= 25 ? 0 : _r(seeds.four, 23, 30),
+            hasEyes ? _r(seeds.four, 23, 30) : 0,
             // hat
-            _r(seeds.five, 1, 100) <= 15 ? 0 : _r(seeds.five, 31, 47),
+            //_r(seeds.five, 1, 100) <= 15 ? 0 : _r(seeds.five, 31, 47),
+            hasEyes && _r(seeds.five, 1, 100) <= 85
+                ? _r(seeds.five, 31, 47)
+                : 0,
             //special
             _r(seeds.six, 1, 100) <= 20 ? 0 : _r(seeds.six, 48, 53),
             // colours
