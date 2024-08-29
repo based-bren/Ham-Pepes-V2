@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-// Ham Pepes are 1000 based frogs living on the Ham Chain L3
+// Ham Pepes are 1000 ham loving frogs living on Base
 // This contract uses the onchain renderer created by Deployer.eth, modified for this use
 // All traits are stored onchain using a sprite sheet and all metadata are stored onchain using the renderer and traits contract
 // created by @based-bren (Farcaster) in 2024
